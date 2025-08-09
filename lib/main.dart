@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(MaterialApp(home: Home(), debugShowCheckedModeBanner: false));
@@ -52,7 +53,10 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Text("Cálculo de Combustível", style: TextStyle(color: Colors.white)),
+        title: Text(
+          "Cálculo de Combustível",
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
         backgroundColor: Colors.lightBlue[900],
         actions: [
@@ -70,12 +74,21 @@ class _HomeState extends State<Home> {
             children: [
               Card(
                 elevation: 4,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 48.0),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 24.0,
+                    horizontal: 48.0,
+                  ),
                   child: Column(
                     children: [
-                      Icon(Icons.local_gas_station, size: 60, color: Colors.lightBlue[900]),
+                      Icon(
+                        Icons.local_gas_station,
+                        size: 60,
+                        color: Colors.lightBlue[900],
+                      ),
                       SizedBox(height: 10),
                       Text(
                         "Custo Estimado",
@@ -84,7 +97,11 @@ class _HomeState extends State<Home> {
                       SizedBox(height: 8),
                       Text(
                         "R\$ ${_resultado.toStringAsFixed(2)}",
-                        style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.lightBlue[900]),
+                        style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.lightBlue[900],
+                        ),
                       ),
                     ],
                   ),
@@ -92,24 +109,45 @@ class _HomeState extends State<Home> {
               ),
               SizedBox(height: 30),
               TextFormField(
-                validator: (value) => (value == null || value.isEmpty) ? "Informe o valor do combustível" : null,
+                validator:
+                    (value) =>
+                        (value == null || value.isEmpty)
+                            ? "Informe o valor do combustível"
+                            : null,
                 controller: valor,
                 keyboardType: TextInputType.number,
                 decoration: _inputDecoration("Valor do Combustível (R\$)"),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d*[,|.]?\d*')),
+                ],
               ),
               SizedBox(height: 16),
               TextFormField(
-                validator: (value) => (value == null || value.isEmpty) ? "Informe a autonomia do veículo" : null,
+                validator:
+                    (value) =>
+                        (value == null || value.isEmpty)
+                            ? "Informe a autonomia do veículo"
+                            : null,
                 controller: autonomia,
                 keyboardType: TextInputType.number,
                 decoration: _inputDecoration("Autonomia do Veículo (Km/L)"),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d*[,|.]?\d*')),
+                ],
               ),
               SizedBox(height: 16),
               TextFormField(
-                validator: (value) => (value == null || value.isEmpty) ? "Informe a distância percorrida" : null,
+                validator:
+                    (value) =>
+                        (value == null || value.isEmpty)
+                            ? "Informe a distância percorrida"
+                            : null,
                 controller: distancia,
                 keyboardType: TextInputType.number,
                 decoration: _inputDecoration("Distância Percorrida (Km)"),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d*[,|.]?\d*')),
+                ],
               ),
               SizedBox(height: 30),
               SizedBox(
@@ -121,11 +159,16 @@ class _HomeState extends State<Home> {
                       _calcular();
                     }
                   },
-                  icon: Icon(Icons.calculate, color: Colors.white,),
-                  label: Text("Calcular", style: TextStyle(fontSize: 20, color: Colors.white)),
+                  icon: Icon(Icons.calculate, color: Colors.white),
+                  label: Text(
+                    "Calcular",
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.lightBlue[900],
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
                 ),
               ),
@@ -136,4 +179,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
